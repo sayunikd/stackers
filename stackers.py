@@ -16,16 +16,19 @@ class stack():
 		pygame.time.set_timer(USEREVENT +1, 200)
 		while self.gaming:
 			for event in pygame.event.get():
-				r = random.randint(0,255)
-				g = random.randint(0,255)
-				b = random.randint(0,255)
-				sense.set_pixel(row,0, (r,g,b))
-				time.sleep(0.2)
-				sense.set_pixel (row,0, (0,0,0))
-				row=(row+1)%8
+				if event.type == KEYDOWN:
+					sense.set_pixel (row, 0, (0,0,255))
+					self.gaming=False
+				else:			
+					sense.set_pixel(row,0, (0,0,255))
+					time.sleep(0.2)
+					sense.set_pixel (row,0, (0,0,0))
+					row=(row+1)%8
+				
 if __name__ == "__main__":
 	try:
 		game = stack ()
 		game.startGame()
 	except KeyboardInterrupt:
 		sense.clear()
+		self.gaming=False
